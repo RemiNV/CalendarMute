@@ -152,7 +152,7 @@ public class MuteService extends Service {
 			// Remove previous alarms
 			alarmManager.cancel(pIntent);
 			// Add new alarm
-			alarmManager.set(AlarmManager.RTC, nextExecutionTime, pIntent);
+			alarmManager.set(AlarmManager.RTC_WAKEUP, nextExecutionTime, pIntent);
 		}
 	}
 	
