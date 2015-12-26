@@ -2,8 +2,7 @@
 <resources>
 
     <string name="app_name">Calendar Mute</string>
-    <string name="prochains_evenements">Next events</string>
-    <string name="erreur_listing_agendas">Error listing your agendas ; is Google Agenda installed ?</string>
+    <string name="calendar_listing_error">Error reading your calendars; did you deny the app the Calendar permission ?</string>
     <string name="agendas">Agendas</string>
     <string name="actions">Actions</string>
     <string name="chargement">Loading&#8230;</string>
@@ -26,4 +25,5 @@
 	<string name="avec_delai_x_minutes_suf">minutes delay</string>
 	<string name="avec_avance_x_minutes_pre">Start</string>
 	<string name="avec_avance_x_minutes_suf">minutes early</string>
+    <string name="calendar_permission_denied">Cannot use this app without the Calendar permission ! Use the Refresh menu or grant permission in your device\'s settings</string>
 </resources>

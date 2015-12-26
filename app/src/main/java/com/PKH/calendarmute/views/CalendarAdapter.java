@@ -22,7 +22,7 @@ public class CalendarAdapter extends ArrayAdapter<Calendar> {
 		public void onCheckedChanged(CompoundButton buttonView, boolean checked) {
 			onItemCheckedChanged();
 		}
-	};
+	}
 	
 	/**
 	 * Sets the listener used when changing the state of a checkable item. Must be called *before* creating each view

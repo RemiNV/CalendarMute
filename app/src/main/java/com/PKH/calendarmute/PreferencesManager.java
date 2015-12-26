@@ -62,7 +62,7 @@ public class PreferencesManager {
 		
 		StringTokenizer tokenizer = new StringTokenizer(strChecked, PREF_AGENDAS_DELIMITER);
 		
-		LinkedHashMap<Long, Boolean> res = new LinkedHashMap<Long, Boolean>();
+		LinkedHashMap<Long, Boolean> res = new LinkedHashMap<>();
 		
 		try {
 			while(tokenizer.hasMoreTokens()) {
@@ -100,55 +100,55 @@ public class PreferencesManager {
 		preferences.edit().putString(PREF_AGENDAS, builder.toString()).commit();
 	}
 	
-	public final static void saveMode(Context context, int mode) {
+	public static void saveMode(Context context, int mode) {
 		context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE).edit().putInt(PREF_SAVED_MODE, mode).commit();
 	}
 	
-	public final static void setActionSonnerie(Context context, int action) {
+	public static void setActionSonnerie(Context context, int action) {
 		context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE).edit().putInt(PREF_ACTION_RINGER, action).commit();
 	}
 	
-	public final static void setRestaurerEtat(Context context, boolean isChecked) {
+	public static void setRestaurerEtat(Context context, boolean isChecked) {
 		context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE).edit().putBoolean(PREF_RESTORE_STATE, isChecked).commit();
 	}
 	
-	public final static void setAfficherNotif(Context context, boolean afficher) {
+	public static void setAfficherNotif(Context context, boolean afficher) {
 		context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE).edit().putBoolean(PREF_SHOW_NOTIF, afficher).commit();
 	}
 	
-	public final static void setLastSetRingerMode(Context context, int ringerMode) {
+	public static void setLastSetRingerMode(Context context, int ringerMode) {
 		context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE).edit().putInt(PREF_LAST_SET_RINGER_MODE, ringerMode).commit();
 	}
 	
-	public final static void setOnlyBusy(Context context, boolean onlyBusy) {
-		context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE).edit().putBoolean(PREF_ONLY_BUSY, onlyBusy).commit();
-	}
-	
-	public final static void setDelay(Context context, int delay) {
+	public static void setDelay(Context context, int delay) {
 		context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE).edit().putInt(PREF_DELAY, delay).commit();
 	}
-	
-	public final static void setDelayActived(Context context, boolean delayActivated) {
+
+	public static void setOnlyBusy(Context context, boolean onlyBusy) {
+		context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE).edit().putBoolean(PREF_ONLY_BUSY, onlyBusy).commit();
+	}
+
+	public static void setDelayActived(Context context, boolean delayActivated) {
 		context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE).edit().putBoolean(PREF_DELAY_ACTIVATED, delayActivated).commit();
 	}
 	
-	public final static void setEarly(Context context, int early) {
+	public static void setEarly(Context context, int early) {
 		context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE).edit().putInt(PREF_EARLY, early).commit();
 	}
 	
-	public final static void setEarlyActived(Context context, boolean earlyActivated) {
+	public static void setEarlyActived(Context context, boolean earlyActivated) {
 		context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE).edit().putBoolean(PREF_EARLY_ACTIVATED, earlyActivated).commit();
 	}
 
-	public final static int getSavedMode(Context context) {
+	public static int getSavedMode(Context context) {
 		return context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE).getInt(PREF_SAVED_MODE, PREF_SAVED_MODE_NO_VALUE);
 	}
 
-	public static final int getRingerAction(Context context) {
+	public static int getRingerAction(Context context) {
 		return context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE).getInt(PREF_ACTION_RINGER, PREF_ACTION_RINGER_DEFAULT);
 	}
 
-	public static final boolean getRestoreState(Context context) {
+	public static boolean getRestoreState(Context context) {
 		return context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE).getBoolean(PREF_RESTORE_STATE, PREF_RESTORE_STATE_DEFAULT);
 	}
 	

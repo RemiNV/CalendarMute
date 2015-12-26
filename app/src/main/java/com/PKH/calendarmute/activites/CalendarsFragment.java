@@ -7,10 +7,14 @@ import com.PKH.calendarmute.models.Calendar;
 import com.PKH.calendarmute.service.MuteService;
 import com.PKH.calendarmute.views.CalendarAdapter;
 
+import android.Manifest;
 import android.app.Activity;
 import android.app.Fragment;
+import android.content.pm.PackageManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v13.app.FragmentCompat;
+import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -23,17 +27,20 @@ import android.widget.Toast;
 public class CalendarsFragment extends Fragment {
 	
 	private ListView lstAgendas;
+
+    private static final int CALENDAR_PERMISSION_REQUEST = 1;
+    private static final int CALENDAR_PERMISSION_REQUEST_FORCE_REFRESH = 2;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
+        super.onCreate(savedInstanceState);
 		
 		this.setHasOptionsMenu(true);
 	}
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		View res = inflater.inflate(R.layout.layout_lst_agendas, container, false);
+        View res = inflater.inflate(R.layout.layout_lst_agendas, container, false);
 		
 		lstAgendas = (ListView) res.findViewById(R.id.lst_calendars);
 		
@@ -44,12 +51,56 @@ public class CalendarsFragment extends Fragment {
 	}
 	
 	public void refreshCalendars(boolean forceRefresh) {
-		Calendar[] savedCalendars;
-		if(!forceRefresh && (savedCalendars = CalendarProvider.getCachedCalendars()) != null)
-			fillCalendars(savedCalendars);
-		else
-			new CalendarGetter().execute(true);
+
+        Activity activity = getActivity();
+        if(activity == null) {
+            return;
+        }
+
+        if (ContextCompat.checkSelfPermission(activity, Manifest.permission.READ_CALENDAR) != PackageManager.PERMISSION_GRANTED) {
+            // Not showing explanations, this should be very obvious
+            FragmentCompat.requestPermissions(this, new String[]{Manifest.permission.READ_CALENDAR}, CALENDAR_PERMISSION_REQUEST);
+        }
+        else {
+            refreshCalendarsWithPermission(forceRefresh);
+        }
 	}
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        switch(requestCode) {
+            case CALENDAR_PERMISSION_REQUEST:
+            case CALENDAR_PERMISSION_REQUEST_FORCE_REFRESH:
+
+                if(grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    refreshCalendarsWithPermission(requestCode == CALENDAR_PERMISSION_REQUEST_FORCE_REFRESH);
+                }
+                else {
+                    // The user wants to use CalendarMute without calendar (not really a genius)
+                    Activity activity = getActivity();
+                    if(activity == null) {
+                        return;
+                    }
+
+                    Toast.makeText(activity, R.string.calendar_permission_denied,
+                            Toast.LENGTH_LONG).show();
+                }
+                break;
+        }
+    }
+
+    /**
+     * Method used to refresh calendars once we have made sure that we have the necessary permissions
+     * @param forceRefresh
+     */
+    private void refreshCalendarsWithPermission(boolean forceRefresh) {
+        Calendar[] savedCalendars;
+        if (!forceRefresh && (savedCalendars = CalendarProvider.getCachedCalendars()) != null) {
+            fillCalendars(savedCalendars);
+        } else {
+            new CalendarGetter().execute(true);
+        }
+    }
 	
 	private class CalendarGetter extends AsyncTask<Boolean, Void, Calendar[]> {
 		@Override
@@ -68,7 +119,7 @@ public class CalendarsFragment extends Fragment {
 		protected void onPostExecute(Calendar[] result) {
 			fillCalendars(result);
 		}
-	};
+	}
 	
 	private void fillCalendars(Calendar[] calendars) {
 		
@@ -77,7 +128,7 @@ public class CalendarsFragment extends Fragment {
 			return;
 		
 		if(calendars == null) {
-			Toast.makeText(a, R.string.erreur_listing_agendas, Toast.LENGTH_LONG).show();
+			Toast.makeText(a, R.string.calendar_listing_error, Toast.LENGTH_LONG).show();
 			return;
 		}
 		

@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Calendar Mute</string>
-    <string name="prochains_evenements">Prochains évènements</string>
-    <string name="erreur_listing_agendas">Erreur de listing de vos agendas ; Google Calendar est-il installé ?</string>
+    <string name="calendar_listing_error">Erreur de lecture de vos agendas ; avez-vous refusé l\'autorisation Agenda à l\'application ?</string>
     <string name="agendas">Agendas</string>
     <string name="actions">Actions</string>
     <string name="chargement">Chargement&#8230;</string>
@@ -25,4 +24,5 @@
 	<string name="avec_delai_x_minutes_suf">minutes</string>
 	<string name="avec_avance_x_minutes_pre">Avec</string>
 	<string name="avec_avance_x_minutes_suf">minutes d\'avance</string>
+    <string name="calendar_permission_denied">Impossible d\'utiliser cette application sans l\'autorisation Agenda ! Sélectionnez Actualiser dans le menu, ou activez l\'autorisation dans les paramètres de votre appareil</string>
 </resources>

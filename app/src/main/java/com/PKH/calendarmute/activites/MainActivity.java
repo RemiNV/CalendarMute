@@ -27,12 +27,12 @@ public class MainActivity extends Activity {
 		// Add tabs
 		Tab tab = ab.newTab()
 				.setText(R.string.agendas)
-				.setTabListener(new CalendarMuteTabListener<CalendarsFragment>(this, TAG_TAB_CALENDARS, CalendarsFragment.class));
+				.setTabListener(new CalendarMuteTabListener<>(this, TAG_TAB_CALENDARS, CalendarsFragment.class));
 		ab.addTab(tab);
 		
 		tab = ab.newTab()
 				.setText(R.string.actions)
-				.setTabListener(new CalendarMuteTabListener<ActionsFragment>(this, TAG_TAB_ACTIONS, ActionsFragment.class));
+				.setTabListener(new CalendarMuteTabListener<>(this, TAG_TAB_ACTIONS, ActionsFragment.class));
 		ab.addTab(tab);
 		
 		if(ACTION_SHOW_ACTIONS.equals(getIntent().getAction()))

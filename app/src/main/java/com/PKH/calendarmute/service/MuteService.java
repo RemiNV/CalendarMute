@@ -53,7 +53,7 @@ public class MuteService extends Service {
      * Update ringer status depending on settings and time
      * @param event Current event
      */
-    private void updateStatutSonnerie(CalendarEvent event) {
+    private void updateRingerStatus(CalendarEvent event) {
         AudioManager audio = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
 
         // Current ringer state
@@ -183,7 +183,7 @@ public class MuteService extends Service {
         CalendarProvider provider = new CalendarProvider(this);
         CalendarEvent currentEvent = provider.getCurrentEvent(timeNow, delay, early, onlyBusy);
 
-        updateStatutSonnerie(currentEvent);
+        updateRingerStatus(currentEvent);
 
         // Setup next execution
         setNextAlarm(currentEvent, timeNow, delay, early, onlyBusy, provider);
